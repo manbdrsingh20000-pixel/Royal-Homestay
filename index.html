@@ -1116,8 +1116,8 @@ footer {
   <div class="container">
     <div class="about__grid">
       <div class="about__image-wrap" data-reveal>
-        <div class="about__image-placeholder">🏡</div>
-        <div class="about__image-accent-placeholder">🌄</div>
+        <img src="homestay.jpeg" class="about__image" alt="Royal Homestay">
+        <img src="scenario.jpeg" class="about__image-accent" alt="Himalayan Scenery">
         <div class="about__badge-floating">
           <strong>10+</strong>
           <span>Years of<br>Experience</span>
@@ -1168,7 +1168,7 @@ footer {
     </div>
     <div class="rooms__grid">
       <div class="room-card" data-reveal data-reveal-delay="1">
-        <div class="room-card__img-placeholder">🛏</div>
+        <img src="homestay.jpeg" class="room-card__img" alt="Single Room">
         <div class="room-card__badge">Available</div>
         <div class="room-card__body">
           <div class="room-card__type">Room Type</div>
@@ -1187,7 +1187,7 @@ footer {
         </div>
       </div>
       <div class="room-card" data-reveal data-reveal-delay="2">
-        <div class="room-card__img-placeholder">🛏🛏</div>
+        <img src="scenario.jpeg" class="room-card__img" alt="Double Room">
         <div class="room-card__badge" style="background:var(--moss);">Popular</div>
         <div class="room-card__body">
           <div class="room-card__type">Room Type</div>
@@ -1235,8 +1235,8 @@ footer {
   <div class="container">
     <div class="food__layout">
       <div class="food__image-stack" data-reveal>
-        <div class="food__img-main-placeholder">🍲</div>
-        <div class="food__img-second-placeholder">🐟</div>
+        <img src="food.jpeg" class="food__img-main" alt="Local Food">
+        <img src="food.jpeg" class="food__img-second" alt="Karnali Fish">
       </div>
       <div data-reveal data-reveal-delay="2">
         <div class="tag">Local Food Experience</div>
@@ -1349,27 +1349,24 @@ footer {
     </div>
     <div class="gallery__grid" data-reveal>
       <div class="gallery-item">
-        <div class="gallery-item-placeholder bg1">🏔<br><small style="font-size:14px;color:rgba(255,255,255,.6);margin-top:8px;display:block;">scenario.jpeg</small></div>
+        <img src="scenario.jpeg" alt="Himalayan Scenery">
       </div>
       <div class="gallery-item">
-        <div class="gallery-item-placeholder bg2">🏡<br><small style="font-size:14px;color:rgba(255,255,255,.6);margin-top:8px;display:block;">homestay.jpeg</small></div>
+        <img src="homestay.jpeg" alt="Royal Homestay">
       </div>
       <div class="gallery-item">
-        <div class="gallery-item-placeholder bg3">🍲<br><small style="font-size:14px;color:rgba(255,255,255,.6);margin-top:8px;display:block;">food.jpeg</small></div>
+        <img src="food.jpeg" alt="Local Food">
       </div>
       <div class="gallery-item">
-        <div class="gallery-item-placeholder bg4">🌿<br><small style="font-size:14px;color:rgba(255,255,255,.6);margin-top:8px;display:block;">Add image</small></div>
+        <img src="night-party.jpeg" alt="Night Celebration">
       </div>
       <div class="gallery-item">
-        <div class="gallery-item-placeholder bg5">🎶<br><small style="font-size:14px;color:rgba(255,255,255,.6);margin-top:8px;display:block;">night-party.jpeg</small></div>
+        <img src="food.jpeg" alt="Traditional Meal">
       </div>
       <div class="gallery-item">
-        <div class="gallery-item-placeholder bg6">🌄<br><small style="font-size:14px;color:rgba(255,255,255,.6);margin-top:8px;display:block;">Add image</small></div>
+        <img src="homestay.jpeg" alt="Homestay Views">
       </div>
     </div>
-    <p style="text-align:center; margin-top:20px; font-size:13px; color:var(--mist);">
-      ↑ Replace the placeholder colors with your actual images (scenario.jpeg, homestay.jpeg, food.jpeg, night-party.jpeg, logo.jpeg)
-    </p>
   </div>
 </section>
 
@@ -1496,7 +1493,10 @@ footer {
   <div class="container">
     <div class="footer__inner">
       <div>
-        <div class="footer__brand-name"><img src="logo.jpeg" style="height:32px;border-radius:50%;border:1px solid var(--gold);"> Royal Homestay</div>
+        <div class="footer__brand-name">
+          <img src="logo.jpeg" alt="Royal Homestay" style="height:36px;width:36px;border-radius:50%;object-fit:cover;border:2px solid var(--gold);flex-shrink:0;">
+          Royal Homestay
+        </div>
         <p class="footer__desc">
           Authentic Himalayan village hospitality in Humla, Nepal. Organic food, mountain views, and genuine warmth — all at an altitude that changes your perspective.
         </p>
@@ -1525,7 +1525,9 @@ footer {
           <a href="https://maps.google.com/?q=Humla,Nepal" target="_blank">📍 Chakheli-4, Piplang, Humla</a>
         </div>
         <div style="margin-top:20px; font-size:12.5px; color:rgba(255,255,255,.3); line-height:1.7;">
-          PAN No: 612898314<br>
+          <span style="display:inline-block; background:rgba(184,134,59,.15); border:1px solid rgba(184,134,59,.3); border-radius:3px; padding:5px 10px; margin-bottom:8px; color:var(--gold-light); font-weight:600; letter-spacing:.5px;">
+            🏛 PAN No: 612898314
+          </span><br>
           Humla District, Karnali Province<br>
           Nepal
         </div>
