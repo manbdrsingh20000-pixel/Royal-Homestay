@@ -3,127 +3,1587 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Royal Homestay - Humla, Nepal</title>
+<title>Royal Homestay – Humla, Nepal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
-body { font-family: Arial; margin:0; background:#f5f5f5; }
-header { background:#333; color:white; padding:15px; text-align:center; }
-nav a { color:white; margin:10px; text-decoration:none; }
+/* ─── ROOT TOKENS ───────────────────────────────────────────── */
+:root {
+  --ink:        #1a1208;
+  --parchment:  #f5f0e8;
+  --cream:      #faf7f2;
+  --gold:       #b8863b;
+  --gold-light: #d4a85a;
+  --earth:      #6b4c2a;
+  --moss:       #4a5e3a;
+  --mist:       #8fa89e;
+  --terracotta: #c4714e;
+  --snow:       #ffffff;
 
+  --ff-display: 'Cormorant Garamond', Georgia, serif;
+  --ff-body:    'Jost', sans-serif;
+
+  --max-w: 1180px;
+  --nav-h: 68px;
+}
+
+/* ─── RESET & BASE ──────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--ff-body);
+  background: var(--cream);
+  color: var(--ink);
+  line-height: 1.7;
+  font-size: 16px;
+  overflow-x: hidden;
+}
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; }
+
+/* ─── UTILITY ───────────────────────────────────────────────── */
+.container { max-width: var(--max-w); margin-inline: auto; padding-inline: 24px; }
+.section { padding-block: 90px; }
+.section--alt { background: var(--parchment); }
+.tag {
+  display: inline-block;
+  font-family: var(--ff-body);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+.section-title {
+  font-family: var(--ff-display);
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 300;
+  line-height: 1.2;
+  color: var(--ink);
+  margin-bottom: 18px;
+}
+.section-title em { font-style: italic; color: var(--earth); }
+.section-sub {
+  font-size: 15px;
+  color: #5a4a35;
+  max-width: 560px;
+  line-height: 1.8;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 30px;
+  border-radius: 2px;
+  font-family: var(--ff-body);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all .28s ease;
+  border: none;
+}
+.btn--gold {
+  background: var(--gold);
+  color: var(--snow);
+}
+.btn--gold:hover { background: var(--earth); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(184,134,59,.35); }
+.btn--outline {
+  background: transparent;
+  color: var(--snow);
+  border: 1.5px solid rgba(255,255,255,.6);
+}
+.btn--outline:hover { background: rgba(255,255,255,.12); border-color: var(--snow); }
+.btn--whatsapp {
+  background: #25D366;
+  color: var(--snow);
+}
+.btn--whatsapp:hover { background: #1da851; transform: translateY(-2px); box-shadow: 0 8px 28px rgba(37,211,102,.3); }
+.divider {
+  width: 48px; height: 2px;
+  background: var(--gold);
+  margin-bottom: 28px;
+}
+
+/* ─── NOISE TEXTURE ─────────────────────────────────────────── */
+body::before {
+  content:'';
+  position:fixed; inset:0; z-index:999; pointer-events:none;
+  opacity:.022;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ─── TOPBAR ────────────────────────────────────────────────── */
+.topbar {
+  background: var(--ink);
+  color: rgba(255,255,255,.65);
+  font-size: 12px;
+  letter-spacing: .5px;
+  padding: 8px 0;
+  text-align: center;
+}
+.topbar a { color: var(--gold-light); }
+
+/* ─── NAV ───────────────────────────────────────────────────── */
+.nav {
+  position: sticky;
+  top: 0; z-index: 200;
+  background: rgba(250,247,242,.96);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(184,134,59,.15);
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+}
+.nav__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.nav__brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.nav__logo {
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--gold);
+}
+.nav__logo-placeholder {
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  background: var(--earth);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  border: 2px solid var(--gold);
+  flex-shrink: 0;
+}
+.nav__name {
+  font-family: var(--ff-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: .3px;
+}
+.nav__links {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+.nav__links a {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: #5a4a35;
+  padding: 8px 14px;
+  border-radius: 2px;
+  transition: color .2s, background .2s;
+}
+.nav__links a:hover { color: var(--gold); background: rgba(184,134,59,.07); }
+.nav__cta { display: flex; gap: 10px; align-items: center; }
+.nav__book {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  background: var(--gold);
+  color: var(--snow);
+  padding: 9px 18px;
+  border-radius: 2px;
+  transition: background .25s, transform .2s;
+  white-space: nowrap;
+}
+.nav__book:hover { background: var(--earth); transform: translateY(-1px); }
+
+/* hamburger */
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+.hamburger span { display: block; width: 24px; height: 2px; background: var(--ink); transition: .3s; border-radius: 2px; }
+.nav-mobile {
+  display: none;
+  flex-direction: column;
+  background: var(--cream);
+  border-top: 1px solid rgba(184,134,59,.15);
+  padding: 16px 24px 24px;
+  gap: 4px;
+}
+.nav-mobile a {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #5a4a35;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(184,134,59,.1);
+}
+.nav-mobile a:last-child { border-bottom: none; }
+.nav-mobile.open { display: flex; }
+
+/* ─── HERO ──────────────────────────────────────────────────── */
 .hero {
-    background:url('scenario.jpeg') center/cover;
-    color:white;
-    padding:100px 20px;
-    text-align:center;
+  position: relative;
+  min-height: calc(100svh - var(--nav-h));
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+.hero__bg {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(to bottom, rgba(15,10,5,.55) 0%, rgba(15,10,5,.25) 50%, rgba(15,10,5,.7) 100%),
+    url('scenario.jpeg') center / cover no-repeat;
+}
+/* Fallback gradient when image is missing */
+.hero__bg--fallback {
+  background:
+    linear-gradient(to bottom right, rgba(15,10,5,.85), rgba(107,76,42,.5)),
+    linear-gradient(135deg, #2c1f0e 0%, #4a3520 40%, #1a3020 100%);
+}
+.hero__particles {
+  position: absolute; inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 20% 35%, rgba(255,255,255,.4) 0%, transparent 100%),
+    radial-gradient(1px 1px at 75% 20%, rgba(255,255,255,.3) 0%, transparent 100%),
+    radial-gradient(1px 1px at 55% 70%, rgba(255,255,255,.25) 0%, transparent 100%);
+}
+.hero__content {
+  position: relative; z-index: 2;
+  max-width: 720px;
+  padding-block: 60px;
+}
+.hero__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.hero__eyebrow span {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 3.5px;
+  text-transform: uppercase;
+  color: var(--gold-light);
+}
+.hero__eyebrow::before, .hero__eyebrow::after {
+  content: '';
+  display: block;
+  width: 32px; height: 1px;
+  background: var(--gold-light);
+  opacity: .7;
+}
+.hero__eyebrow::after { display: none; }
+.hero__title {
+  font-family: var(--ff-display);
+  font-size: clamp(2.8rem, 7vw, 5.5rem);
+  font-weight: 300;
+  line-height: 1.08;
+  color: var(--snow);
+  margin-bottom: 24px;
+  letter-spacing: -.5px;
+}
+.hero__title em { font-style: italic; color: var(--gold-light); }
+.hero__sub {
+  font-size: 15px;
+  color: rgba(255,255,255,.8);
+  max-width: 500px;
+  line-height: 1.85;
+  margin-bottom: 36px;
+}
+.hero__actions { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; margin-bottom: 52px; }
+.hero__badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.hero__badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255,255,255,.75);
+  font-size: 13px;
+}
+.hero__badge-icon {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: rgba(184,134,59,.3);
+  border: 1px solid rgba(184,134,59,.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+.hero__scroll {
+  position: absolute;
+  bottom: 36px; left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255,255,255,.5);
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.hero__scroll-line {
+  width: 1px; height: 40px;
+  background: linear-gradient(to bottom, rgba(255,255,255,.5), transparent);
+  animation: scrollLine 2s ease-in-out infinite;
+}
+@keyframes scrollLine {
+  0%, 100% { transform: scaleY(1); opacity: 1; }
+  50% { transform: scaleY(.5); opacity: .4; }
 }
 
-section { padding:40px 20px; }
+/* ─── HIGHLIGHTS STRIP ──────────────────────────────────────── */
+.highlights {
+  background: var(--ink);
+  padding: 24px 0;
+}
+.highlights__inner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  justify-content: center;
+}
+.highlights__item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 32px;
+  color: rgba(255,255,255,.7);
+  font-size: 13px;
+  font-weight: 300;
+  letter-spacing: .5px;
+  border-right: 1px solid rgba(255,255,255,.1);
+}
+.highlights__item:last-child { border-right: none; }
+.highlights__item strong { color: var(--gold-light); font-weight: 500; }
+.highlights__dot { font-size: 18px; }
 
-.gallery img {
-    width:100%;
-    max-width:300px;
-    margin:10px;
-    border-radius:10px;
+/* ─── ABOUT ─────────────────────────────────────────────────── */
+.about__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+.about__image-wrap {
+  position: relative;
+}
+.about__image {
+  width: 100%;
+  aspect-ratio: 4/5;
+  object-fit: cover;
+  border-radius: 2px;
+}
+.about__image-placeholder {
+  width: 100%;
+  aspect-ratio: 4/5;
+  background: linear-gradient(135deg, #4a3520 0%, #2c5040 100%);
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 80px;
+}
+.about__image-accent {
+  position: absolute;
+  bottom: -20px; right: -20px;
+  width: 55%;
+  aspect-ratio: 1/1;
+  border: 3px solid var(--parchment);
+  border-radius: 2px;
+  object-fit: cover;
+}
+.about__image-accent-placeholder {
+  position: absolute;
+  bottom: -20px; right: -20px;
+  width: 55%;
+  aspect-ratio: 1/1;
+  background: linear-gradient(135deg, #b8863b 0%, #6b4c2a 100%);
+  border: 3px solid var(--parchment);
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+}
+.about__badge-floating {
+  position: absolute;
+  top: 24px; left: -24px;
+  background: var(--gold);
+  color: var(--snow);
+  padding: 14px 20px;
+  border-radius: 2px;
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(184,134,59,.4);
+}
+.about__badge-floating strong { display: block; font-size: 2rem; font-family: var(--ff-display); font-weight: 300; line-height: 1; }
+.about__badge-floating span { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; opacity: .9; }
+.about__promise {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 32px;
+}
+.about__promise-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  color: #4a3a28;
+  line-height: 1.5;
+}
+.about__promise-icon {
+  width: 28px; height: 28px;
+  min-width: 28px;
+  border-radius: 50%;
+  background: rgba(184,134,59,.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  margin-top: 1px;
+}
+.host-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 32px;
+  padding: 20px;
+  background: var(--parchment);
+  border-left: 3px solid var(--gold);
+  border-radius: 0 4px 4px 0;
+}
+.host-avatar {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: var(--earth);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  flex-shrink: 0;
+}
+.host-name { font-family: var(--ff-display); font-size: 1.1rem; font-weight: 600; }
+.host-role { font-size: 12px; color: var(--gold); letter-spacing: 1px; text-transform: uppercase; }
+
+/* ─── ROOMS ─────────────────────────────────────────────────── */
+.rooms__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 28px;
+  margin-top: 48px;
+}
+.room-card {
+  background: var(--snow);
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 2px 20px rgba(0,0,0,.06);
+  transition: transform .3s, box-shadow .3s;
+  position: relative;
+}
+.room-card:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(0,0,0,.12); }
+.room-card__img {
+  height: 240px;
+  width: 100%;
+  object-fit: cover;
+}
+.room-card__img-placeholder {
+  height: 240px;
+  background: linear-gradient(135deg, #4a3520 0%, #2c5040 60%, #1a2a20 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 56px;
+}
+.room-card__badge {
+  position: absolute;
+  top: 18px; right: 18px;
+  background: var(--gold);
+  color: var(--snow);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 2px;
+}
+.room-card__body { padding: 28px; }
+.room-card__type {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--mist);
+  margin-bottom: 6px;
+}
+.room-card__name {
+  font-family: var(--ff-display);
+  font-size: 1.6rem;
+  font-weight: 400;
+  margin-bottom: 4px;
+}
+.room-card__price {
+  font-size: 1.8rem;
+  font-family: var(--ff-display);
+  font-weight: 300;
+  color: var(--gold);
+  margin-bottom: 6px;
+}
+.room-card__price sub { font-size: 14px; color: #888; font-family: var(--ff-body); }
+.room-card__meals {
+  font-size: 12px;
+  color: var(--moss);
+  font-weight: 600;
+  letter-spacing: .5px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.room-card__amenities {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  margin-bottom: 24px;
+}
+.room-card__amenity {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13.5px;
+  color: #4a3a28;
+}
+.room-card__amenity-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+  flex-shrink: 0;
 }
 
-.grid {
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:center;
+/* ─── FACILITIES ────────────────────────────────────────────── */
+.facilities__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+  margin-top: 48px;
+}
+.facility-item {
+  text-align: center;
+  padding: 32px 20px;
+  background: var(--snow);
+  border-radius: 4px;
+  border: 1px solid rgba(184,134,59,.12);
+  transition: border-color .25s, box-shadow .25s, transform .25s;
+}
+.facility-item:hover {
+  border-color: var(--gold);
+  box-shadow: 0 8px 32px rgba(184,134,59,.12);
+  transform: translateY(-4px);
+}
+.facility-icon { font-size: 36px; margin-bottom: 14px; }
+.facility-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink);
+  letter-spacing: .3px;
 }
 
-.card {
-    background:white;
-    padding:20px;
-    margin:10px;
-    border-radius:10px;
-    width:250px;
+/* ─── FOOD ──────────────────────────────────────────────────── */
+.food__layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+.food__image-stack {
+  position: relative;
+  height: 480px;
+}
+.food__img-main {
+  position: absolute;
+  top: 0; left: 0;
+  width: 72%;
+  height: 78%;
+  object-fit: cover;
+  border-radius: 2px;
+}
+.food__img-main-placeholder {
+  position: absolute;
+  top: 0; left: 0;
+  width: 72%; height: 78%;
+  background: linear-gradient(135deg, #4a3a28 0%, #2a3a20 100%);
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 64px;
+}
+.food__img-second {
+  position: absolute;
+  bottom: 0; right: 0;
+  width: 58%;
+  height: 52%;
+  object-fit: cover;
+  border-radius: 2px;
+  border: 4px solid var(--cream);
+}
+.food__img-second-placeholder {
+  position: absolute;
+  bottom: 0; right: 0;
+  width: 58%; height: 52%;
+  background: linear-gradient(135deg, #b8863b 0%, #4a5e3a 100%);
+  border-radius: 2px;
+  border: 4px solid var(--cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+}
+.food__dishes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 28px;
+}
+.dish-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  background: var(--parchment);
+  border: 1px solid rgba(184,134,59,.2);
+  border-radius: 99px;
+  font-size: 13px;
+  color: var(--earth);
+  font-weight: 500;
+  transition: background .2s, border-color .2s;
+}
+.dish-tag:hover { background: rgba(184,134,59,.12); border-color: var(--gold); }
+
+/* ─── ACTIVITIES ────────────────────────────────────────────── */
+.activities__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+  margin-top: 48px;
+}
+.activity-card {
+  background: var(--snow);
+  border-radius: 4px;
+  padding: 32px 28px;
+  border: 1px solid rgba(184,134,59,.1);
+  transition: all .28s ease;
+  position: relative;
+  overflow: hidden;
+}
+.activity-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(184,134,59,.04), transparent);
+  opacity: 0;
+  transition: opacity .3s;
+}
+.activity-card:hover { border-color: var(--gold); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,.08); }
+.activity-card:hover::before { opacity: 1; }
+.activity-icon { font-size: 36px; margin-bottom: 16px; }
+.activity-title { font-family: var(--ff-display); font-size: 1.35rem; font-weight: 600; margin-bottom: 10px; }
+.activity-desc { font-size: 14px; color: #5a4a35; line-height: 1.7; }
+.activity-examples {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.activity-example {
+  font-size: 12.5px;
+  color: var(--gold);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.activity-example::before { content: '→'; font-size: 10px; }
+
+/* ─── GALLERY ───────────────────────────────────────────────── */
+.gallery__grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: auto;
+  gap: 12px;
+  margin-top: 48px;
+}
+.gallery-item {
+  overflow: hidden;
+  border-radius: 2px;
+  position: relative;
+  background: var(--earth);
+}
+.gallery-item::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: rgba(0,0,0,0);
+  transition: background .3s;
+}
+.gallery-item:hover::after { background: rgba(184,134,59,.15); }
+.gallery-item img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform .5s ease;
+}
+.gallery-item:hover img { transform: scale(1.06); }
+.gallery-item-placeholder {
+  width: 100%; height: 100%;
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+}
+.gallery-item:nth-child(1) { grid-column: span 8; grid-row: span 2; min-height: 420px; }
+.gallery-item:nth-child(2) { grid-column: span 4; min-height: 204px; }
+.gallery-item:nth-child(3) { grid-column: span 4; min-height: 204px; }
+.gallery-item:nth-child(4) { grid-column: span 4; min-height: 200px; }
+.gallery-item:nth-child(5) { grid-column: span 4; min-height: 200px; }
+.gallery-item:nth-child(6) { grid-column: span 4; min-height: 200px; }
+.gallery-item-placeholder.bg1 { background: linear-gradient(135deg, #2c5040 0%, #1a3020 100%); }
+.gallery-item-placeholder.bg2 { background: linear-gradient(135deg, #4a3520 0%, #6b4c2a 100%); }
+.gallery-item-placeholder.bg3 { background: linear-gradient(135deg, #b8863b 0%, #8b6020 100%); }
+.gallery-item-placeholder.bg4 { background: linear-gradient(135deg, #4a5e3a 0%, #2a3a1e 100%); }
+.gallery-item-placeholder.bg5 { background: linear-gradient(135deg, #c4714e 0%, #8b4020 100%); }
+.gallery-item-placeholder.bg6 { background: linear-gradient(135deg, #8fa89e 0%, #4a6860 100%); }
+
+/* ─── TRAVEL ────────────────────────────────────────────────── */
+.travel__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: start;
+}
+.travel__options { display: flex; flex-direction: column; gap: 20px; margin-top: 28px; }
+.travel-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 20px;
+  background: var(--snow);
+  border-radius: 4px;
+  border: 1px solid rgba(184,134,59,.1);
+}
+.travel-option-icon {
+  width: 44px; height: 44px;
+  min-width: 44px;
+  border-radius: 50%;
+  background: rgba(184,134,59,.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+.travel-option-title { font-weight: 600; font-size: 15px; margin-bottom: 4px; }
+.travel-option-desc { font-size: 13.5px; color: #5a4a35; line-height: 1.6; }
+.map-placeholder {
+  background: linear-gradient(135deg, #2c3a28 0%, #4a5e3a 40%, #2a4a38 100%);
+  border-radius: 4px;
+  height: 380px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: rgba(255,255,255,.8);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: opacity .2s;
+}
+.map-placeholder:hover { opacity: .92; }
+.map-placeholder::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    radial-gradient(circle at 40% 40%, rgba(184,134,59,.15) 0%, transparent 60%),
+    radial-gradient(circle at 75% 65%, rgba(255,255,255,.04) 0%, transparent 50%);
+}
+.map-pin { font-size: 48px; position: relative; z-index: 1; }
+.map-label { font-family: var(--ff-display); font-size: 1.2rem; font-weight: 300; position: relative; z-index: 1; }
+.map-sub { font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; opacity: .6; position: relative; z-index: 1; }
+.map-link {
+  position: relative; z-index: 1;
+  margin-top: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  border-bottom: 1px solid rgba(184,134,59,.4);
+  padding-bottom: 2px;
 }
 
+/* ─── CONTACT ───────────────────────────────────────────────── */
+.contact__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: start;
+}
+.contact__channels { display: flex; flex-direction: column; gap: 20px; margin-top: 28px; }
+.contact-channel {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 22px 24px;
+  background: var(--snow);
+  border-radius: 4px;
+  border: 1px solid rgba(184,134,59,.12);
+  transition: all .25s;
+}
+.contact-channel:hover { border-color: var(--gold); box-shadow: 0 4px 20px rgba(184,134,59,.1); }
+.contact-channel-icon {
+  width: 46px; height: 46px;
+  min-width: 46px;
+  border-radius: 50%;
+  background: rgba(184,134,59,.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+.contact-channel-label { font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--mist); margin-bottom: 3px; }
+.contact-channel-value { font-size: 15px; font-weight: 500; color: var(--ink); }
+.contact-channel-value a { color: var(--gold); }
+.contact__info-box {
+  background: var(--ink);
+  border-radius: 4px;
+  padding: 36px;
+  color: rgba(255,255,255,.8);
+}
+.contact__info-box h3 {
+  font-family: var(--ff-display);
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: var(--snow);
+  margin-bottom: 6px;
+}
+.contact__info-box .tag { color: var(--gold-light); }
+.contact__info-box p { font-size: 14px; line-height: 1.8; margin-bottom: 24px; color: rgba(255,255,255,.65); }
+.pan-info { font-size: 13px; color: rgba(255,255,255,.4); border-top: 1px solid rgba(255,255,255,.08); padding-top: 20px; margin-top: 20px; }
+.pan-info strong { color: rgba(255,255,255,.6); }
+.booking-hours {
+  background: rgba(184,134,59,.1);
+  border: 1px solid rgba(184,134,59,.2);
+  border-radius: 3px;
+  padding: 14px 18px;
+  margin-bottom: 24px;
+}
+.booking-hours p { font-size: 13px; color: rgba(255,255,255,.6); margin: 0; }
+.booking-hours strong { color: var(--gold-light); }
+
+/* ─── FOOTER ────────────────────────────────────────────────── */
 footer {
-    background:#333;
-    color:white;
-    text-align:center;
-    padding:20px;
+  background: #0e0a05;
+  color: rgba(255,255,255,.55);
+  padding: 48px 0 32px;
+}
+.footer__inner {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 48px;
+  margin-bottom: 40px;
+}
+.footer__brand-name {
+  font-family: var(--ff-display);
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: var(--snow);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.footer__desc { font-size: 13.5px; line-height: 1.8; max-width: 300px; }
+.footer__col-title {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  margin-bottom: 18px;
+}
+.footer__links { display: flex; flex-direction: column; gap: 10px; }
+.footer__links a {
+  font-size: 13.5px;
+  color: rgba(255,255,255,.5);
+  transition: color .2s;
+}
+.footer__links a:hover { color: var(--gold-light); }
+.footer__bottom {
+  border-top: 1px solid rgba(255,255,255,.06);
+  padding-top: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 12.5px;
+}
+.footer__bottom-links { display: flex; gap: 20px; }
+.footer__bottom-links a { color: rgba(255,255,255,.35); transition: color .2s; }
+.footer__bottom-links a:hover { color: var(--gold-light); }
+
+/* ─── FLOATING WA BTN ───────────────────────────────────────── */
+.wa-float {
+  position: fixed;
+  bottom: 28px; right: 28px;
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #25D366;
+  color: var(--snow);
+  padding: 14px 20px;
+  border-radius: 99px;
+  box-shadow: 0 8px 32px rgba(37,211,102,.45);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .5px;
+  transition: transform .25s, box-shadow .25s;
+  animation: waPulse 3s ease-in-out infinite;
+}
+.wa-float:hover {
+  transform: scale(1.06);
+  box-shadow: 0 12px 40px rgba(37,211,102,.55);
+  animation: none;
+}
+@keyframes waPulse {
+  0%, 100% { box-shadow: 0 8px 32px rgba(37,211,102,.45); }
+  50% { box-shadow: 0 8px 48px rgba(37,211,102,.7); }
+}
+.wa-float-icon { font-size: 20px; }
+
+/* ─── ANIMATIONS ────────────────────────────────────────────── */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+[data-reveal].visible {
+  opacity: 1;
+  transform: none;
+}
+[data-reveal-delay="1"] { transition-delay: .1s; }
+[data-reveal-delay="2"] { transition-delay: .2s; }
+[data-reveal-delay="3"] { transition-delay: .3s; }
+[data-reveal-delay="4"] { transition-delay: .4s; }
+
+/* ─── RESPONSIVE ────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .nav__links, .nav__cta .nav__book { display: none; }
+  .hamburger { display: flex; }
+  .about__grid, .food__layout, .travel__grid, .contact__grid { grid-template-columns: 1fr; gap: 36px; }
+  .about__image-wrap { max-height: 360px; }
+  .about__image, .about__image-placeholder { aspect-ratio: 16/9; }
+  .about__image-accent, .about__image-accent-placeholder { display: none; }
+  .about__badge-floating { top: 12px; left: 12px; }
+  .about__promise { grid-template-columns: 1fr; }
+  .footer__inner { grid-template-columns: 1fr; gap: 28px; }
+  .footer__bottom { flex-direction: column; text-align: center; }
+  .gallery__grid { grid-template-columns: 1fr 1fr; }
+  .gallery-item:nth-child(1) { grid-column: span 2; min-height: 280px; }
+  .gallery-item:nth-child(2), .gallery-item:nth-child(3), .gallery-item:nth-child(4), .gallery-item:nth-child(5), .gallery-item:nth-child(6) { grid-column: span 1; }
+  .hero__title { font-size: clamp(2.4rem, 8vw, 4rem); }
+  .highlights__item { padding: 8px 16px; font-size: 12px; }
+  .wa-float span { display: none; }
+  .wa-float { padding: 14px 16px; }
+}
+@media (max-width: 600px) {
+  .section { padding-block: 60px; }
+  .rooms__grid { grid-template-columns: 1fr; }
+  .gallery__grid { grid-template-columns: 1fr; }
+  .gallery-item:nth-child(n) { grid-column: span 1; min-height: 220px; }
+  .highlights__inner { flex-direction: column; align-items: center; }
+  .highlights__item { border-right: none; border-bottom: 1px solid rgba(255,255,255,.08); width: 100%; justify-content: center; }
+  .hero__actions { flex-direction: column; align-items: flex-start; }
 }
 </style>
 </head>
-
 <body>
 
-<header>
-    <h1>🏔️ Royal Homestay</h1>
-    <nav>
-        <a href="#about">About</a>
-        <a href="#rooms">Rooms</a>
-        <a href="#food">Food</a>
-        <a href="#gallery">Gallery</a>
-        <a href="#contact">Contact</a>
-    </nav>
-</header>
-
-<div class="hero">
-    <h2>Authentic Himalayan Experience</h2>
-    <p>Humla, Nepal</p>
-    <a href="https://wa.me/9765888888" style="background:green;color:white;padding:10px 20px;border-radius:5px;">Book via WhatsApp</a>
+<!-- TOPBAR -->
+<div class="topbar">
+  ✈ Now accepting bookings for 2026 season &nbsp;|&nbsp; Call or WhatsApp: <a href="tel:+9779765888888">+977 976 588 8888</a>
 </div>
 
-<section id="about">
-    <h2>About</h2>
-    <img src="homestay.jpeg" width="300">
-    <p>
-        Welcome to Royal Homestay in Humla. Run by Danta Shahi with 10+ years experience.
-        Enjoy local food, Himalayan views, and peaceful village life.
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="container nav__inner">
+    <div class="nav__brand">
+      <div class="nav__logo-placeholder">🏔</div>
+      <span class="nav__name">Royal Homestay</span>
+    </div>
+    <div class="nav__links">
+      <a href="#about">About</a>
+      <a href="#rooms">Rooms</a>
+      <a href="#food">Food</a>
+      <a href="#activities">Activities</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#travel">Travel</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="nav__cta">
+      <a href="https://wa.me/9779765888888" class="nav__book" target="_blank">Book Now</a>
+      <div class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="nav-mobile" id="navMobile">
+  <a href="#about" onclick="toggleMenu()">About</a>
+  <a href="#rooms" onclick="toggleMenu()">Rooms</a>
+  <a href="#food" onclick="toggleMenu()">Food</a>
+  <a href="#activities" onclick="toggleMenu()">Activities</a>
+  <a href="#gallery" onclick="toggleMenu()">Gallery</a>
+  <a href="#travel" onclick="toggleMenu()">Travel</a>
+  <a href="#contact" onclick="toggleMenu()">Contact</a>
+  <a href="https://wa.me/9779765888888" target="_blank" style="color:var(--gold); font-weight:600;">📲 Book via WhatsApp</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero__bg hero__bg--fallback" id="heroBg"></div>
+  <div class="hero__particles"></div>
+  <div class="container">
+    <div class="hero__content">
+      <div class="hero__eyebrow">
+        <span>Humla, Nepal &nbsp;·&nbsp; Chakheli-4, Piplang</span>
+      </div>
+      <h1 class="hero__title">
+        Where the <em>Himalayas</em><br>become your home
+      </h1>
+      <p class="hero__sub">
+        Step into a life of mountain stillness, organic meals, and genuine Nepali village hospitality. A sanctuary 10 years in the making — and only 20 guests at a time.
+      </p>
+      <div class="hero__actions">
+        <a href="https://wa.me/9779765888888" class="btn btn--whatsapp" target="_blank">
+          <span>📲</span> Book via WhatsApp
+        </a>
+        <a href="#about" class="btn btn--outline">Discover the Homestay</a>
+      </div>
+      <div class="hero__badges">
+        <div class="hero__badge"><div class="hero__badge-icon">🏔</div> Himalayan Views</div>
+        <div class="hero__badge"><div class="hero__badge-icon">🌿</div> Organic Food</div>
+        <div class="hero__badge"><div class="hero__badge-icon">🕊</div> Peaceful Stay</div>
+        <div class="hero__badge"><div class="hero__badge-icon">🥾</div> Trekking Access</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero__scroll">
+    <div class="hero__scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- HIGHLIGHTS STRIP -->
+<div class="highlights">
+  <div class="highlights__inner">
+    <div class="highlights__item"><span class="highlights__dot">🏠</span> <strong>Max 20 guests</strong>&nbsp; Personal experience</div>
+    <div class="highlights__item"><span class="highlights__dot">🍚</span> <strong>3 meals</strong>&nbsp; All rates included</div>
+    <div class="highlights__item"><span class="highlights__dot">📶</span> <strong>Strong WiFi</strong>&nbsp; Stay connected</div>
+    <div class="highlights__item"><span class="highlights__dot">☀</span> <strong>Solar backup</strong>&nbsp; 24-hour electricity</div>
+    <div class="highlights__item"><span class="highlights__dot">♨</span> <strong>Hot water</strong>&nbsp; Always available</div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="container">
+    <div class="about__grid">
+      <div class="about__image-wrap" data-reveal>
+        <div class="about__image-placeholder">🏡</div>
+        <div class="about__image-accent-placeholder">🌄</div>
+        <div class="about__badge-floating">
+          <strong>10+</strong>
+          <span>Years of<br>Experience</span>
+        </div>
+      </div>
+      <div data-reveal data-reveal-delay="2">
+        <div class="tag">Our Story</div>
+        <h2 class="section-title">More than a stay —<br><em>a family welcome</em></h2>
+        <div class="divider"></div>
+        <p class="section-sub">
+          Nestled in the pristine village of Chakheli-4, Piplang in Humla, Royal Homestay is a real home opened to the world. We believe the best travel experiences happen when you slow down, eat with the family, and watch the sun rise over Saipal Himal.
+        </p>
+
+        <div class="host-card" style="margin-top:28px;">
+          <div class="host-avatar">👤</div>
+          <div>
+            <div class="host-name">Danta Shahi</div>
+            <div class="host-role">Owner & Host · 10+ Years Local Business</div>
+            <p style="font-size:13.5px; color:#5a4a35; margin-top:6px; line-height:1.6;">
+              "I started this homestay to share our beautiful culture and landscapes. Every guest who arrives becomes part of our family."
+            </p>
+          </div>
+        </div>
+
+        <div class="about__promise">
+          <div class="about__promise-item"><div class="about__promise-icon">🏔</div> Saipal &amp; Chankheli mountain views</div>
+          <div class="about__promise-item"><div class="about__promise-icon">🌿</div> Organic home-cooked meals daily</div>
+          <div class="about__promise-item"><div class="about__promise-icon">🕊</div> Peaceful Himalayan environment</div>
+          <div class="about__promise-item"><div class="about__promise-icon">🗺</div> Travel guidance &amp; local support</div>
+          <div class="about__promise-item"><div class="about__promise-icon">🤝</div> Authentic village lifestyle</div>
+          <div class="about__promise-item"><div class="about__promise-icon">👥</div> Max 20 guests for quality stays</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROOMS -->
+<section class="section section--alt" id="rooms">
+  <div class="container">
+    <div style="text-align:center;" data-reveal>
+      <div class="tag">Accommodation</div>
+      <h2 class="section-title">Rooms &amp; <em>Pricing</em></h2>
+      <div class="divider" style="margin-inline:auto;"></div>
+      <p class="section-sub" style="margin-inline:auto; text-align:center;">
+        Simple, clean, and peaceful — every room rate includes three organic meals, WiFi, and hot water.
+      </p>
+    </div>
+    <div class="rooms__grid">
+      <div class="room-card" data-reveal data-reveal-delay="1">
+        <div class="room-card__img-placeholder">🛏</div>
+        <div class="room-card__badge">Available</div>
+        <div class="room-card__body">
+          <div class="room-card__type">Room Type</div>
+          <div class="room-card__name">Single Room</div>
+          <div class="room-card__price">NPR 500 <sub>/ night</sub></div>
+          <div class="room-card__meals">✅ 3 organic meals included</div>
+          <div class="room-card__amenities">
+            <div class="room-card__amenity"><div class="room-card__amenity-dot"></div> Private single room</div>
+            <div class="room-card__amenity"><div class="room-card__amenity-dot"></div> Attached bathroom</div>
+            <div class="room-card__amenity"><div class="room-card__amenity-dot"></div> Hot water always available</div>
+            <div class="room-card__amenity"><div class="room-card__amenity-dot"></div> Strong WiFi connection</div>
+            <div class="room-card__amenity"><div class="room-card__amenity-dot"></div> Solar electricity backup</div>
+            <div class="room-card__amenity"><div class="room-card__amenity-dot"></div> Mountain view access</div>
+          </div>
+          <a href="https://wa.me/9779765888888?text=Hi!%20I'd%20like%20to%20book%20a%20Single%20Room%20at%20Royal%20Homestay." class="btn btn--gold" style="width:100%; justify-content:center;" target="_blank">📲 Book This Room</a>
+        </div>
+      </div>
+      <div class="room-card" data-reveal data-reveal-delay="2">
+        <div class="room-card__img-placeholder">🛏🛏</div>
+        <div class="room-card__badge" style="background:var(--moss);">Popular</div>
+        <div class="room-card__body">
+          <div class="room-card__type">Room Type</div>
+          <div class="room-card__name">Double Room</div>
+          <div class="room-card__price">NPR 1,000 <sub>/ night</sub></div>
+          <div class="room-card__meals">✅ 3 organic meals included</div>
+          <div class="room-card__amenities">
+            <div class="room-card__amenity"><div class="room-card__amenity-dot"></div> Spacious double room</div>
+            <div class="room-card__amenity"><div class="room-card__amenity-dot"></div> Attached bathroom</div>
+            <div class="room-card__amenity"><div class="room-card__amenity-dot"></div> Hot water always available</div>
+            <div class="room-card__amenity"><div class="room-card__amenity-dot"></div> Strong WiFi connection</div>
+            <div class="room-card__amenity"><div class="room-card__amenity-dot"></div> Solar electricity backup</div>
+            <div class="room-card__amenity"><div class="room-card__amenity-dot"></div> Mountain view access</div>
+          </div>
+          <a href="https://wa.me/9779765888888?text=Hi!%20I'd%20like%20to%20book%20a%20Double%20Room%20at%20Royal%20Homestay." class="btn btn--gold" style="width:100%; justify-content:center;" target="_blank">📲 Book This Room</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FACILITIES -->
+<section class="section" id="facilities">
+  <div class="container">
+    <div style="text-align:center;" data-reveal>
+      <div class="tag">What We Offer</div>
+      <h2 class="section-title">Every <em>Comfort</em>,<br>Simply Done</h2>
+      <div class="divider" style="margin-inline:auto;"></div>
+    </div>
+    <div class="facilities__grid">
+      <div class="facility-item" data-reveal data-reveal-delay="1"><div class="facility-icon">📶</div><div class="facility-label">Strong WiFi</div></div>
+      <div class="facility-item" data-reveal data-reveal-delay="1"><div class="facility-icon">♨</div><div class="facility-label">Hot Water Always</div></div>
+      <div class="facility-item" data-reveal data-reveal-delay="2"><div class="facility-icon">☀</div><div class="facility-label">Solar Electricity</div></div>
+      <div class="facility-item" data-reveal data-reveal-delay="2"><div class="facility-icon">🚿</div><div class="facility-label">Attached Bathroom</div></div>
+      <div class="facility-item" data-reveal data-reveal-delay="3"><div class="facility-icon">🍽</div><div class="facility-label">3 Meals Included</div></div>
+      <div class="facility-item" data-reveal data-reveal-delay="3"><div class="facility-icon">🌿</div><div class="facility-label">Organic Food</div></div>
+      <div class="facility-item" data-reveal data-reveal-delay="4"><div class="facility-icon">🗺</div><div class="facility-label">Travel Guidance</div></div>
+      <div class="facility-item" data-reveal data-reveal-delay="4"><div class="facility-icon">🏔</div><div class="facility-label">Mountain Views</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOD -->
+<section class="section section--alt" id="food">
+  <div class="container">
+    <div class="food__layout">
+      <div class="food__image-stack" data-reveal>
+        <div class="food__img-main-placeholder">🍲</div>
+        <div class="food__img-second-placeholder">🐟</div>
+      </div>
+      <div data-reveal data-reveal-delay="2">
+        <div class="tag">Local Food Experience</div>
+        <h2 class="section-title">Taste of the <em>Himalayas</em></h2>
+        <div class="divider"></div>
+        <p class="section-sub">
+          Every meal at Royal Homestay is a journey into the flavours of Humla. We cook what the land offers — ancient grains, foraged greens, and the freshest river catch — seasoned with generations of tradition.
+        </p>
+        <div class="food__dishes">
+          <span class="dish-tag">🌾 Marsi Rice</span>
+          <span class="dish-tag">🫓 Millet Bread</span>
+          <span class="dish-tag">🌿 Sisno (Nettle)</span>
+          <span class="dish-tag">🍜 Thukpa</span>
+          <span class="dish-tag">🐟 Karnali River Fish</span>
+          <span class="dish-tag">🥬 Organic Vegetables</span>
+          <span class="dish-tag">🫖 Local Herbal Tea</span>
+          <span class="dish-tag">🌽 Seasonal Grains</span>
+        </div>
+        <div style="margin-top:28px; padding:18px 20px; background:rgba(74,94,58,.1); border-left:3px solid var(--moss); border-radius:0 4px 4px 0;">
+          <p style="font-size:14px; color:var(--moss); font-weight:500;">🌱 100% home-grown &amp; locally sourced ingredients. No artificial additives — ever.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACTIVITIES -->
+<section class="section" id="activities">
+  <div class="container">
+    <div style="text-align:center;" data-reveal>
+      <div class="tag">Experiences</div>
+      <h2 class="section-title">Activities &amp; <em>Adventures</em></h2>
+      <div class="divider" style="margin-inline:auto;"></div>
+      <p class="section-sub" style="margin-inline:auto; text-align:center;">
+        From dramatic mountain treks to intimate cultural evenings, there's no shortage of ways to connect with Humla.
+      </p>
+    </div>
+    <div class="activities__grid">
+      <div class="activity-card" data-reveal data-reveal-delay="1">
+        <div class="activity-icon">🥾</div>
+        <div class="activity-title">Trekking</div>
+        <div class="activity-desc">Explore spectacular Himalayan trails guided by your host, through ancient landscapes and high-altitude panoramas.</div>
+        <div class="activity-examples">
+          <div class="activity-example">Tato Pani Hot Springs</div>
+          <div class="activity-example">Malika Lekh Ridge</div>
+          <div class="activity-example">Takya Patan Village</div>
+        </div>
+      </div>
+      <div class="activity-card" data-reveal data-reveal-delay="2">
+        <div class="activity-icon">🎶</div>
+        <div class="activity-title">Cultural Dance</div>
+        <div class="activity-desc">Join authentic village celebrations featuring traditional Deuda and Hudke dance performed by local communities.</div>
+        <div class="activity-examples">
+          <div class="activity-example">Deuda Dance evenings</div>
+          <div class="activity-example">Hudke drumming circles</div>
+          <div class="activity-example">Seasonal festivals</div>
+        </div>
+      </div>
+      <div class="activity-card" data-reveal data-reveal-delay="3">
+        <div class="activity-icon">🌾</div>
+        <div class="activity-title">Village Life</div>
+        <div class="activity-desc">Participate in daily farm life — sow, harvest, and discover centuries-old organic farming wisdom of Humla.</div>
+        <div class="activity-examples">
+          <div class="activity-example">Organic farming walks</div>
+          <div class="activity-example">Marsi rice cultivation</div>
+          <div class="activity-example">Village community visits</div>
+        </div>
+      </div>
+      <div class="activity-card" data-reveal data-reveal-delay="1">
+        <div class="activity-icon">🧘</div>
+        <div class="activity-title">Meditation &amp; Wellness</div>
+        <div class="activity-desc">The deep silence of Humla makes it a perfect sanctuary for meditation, reflection, and digital detox.</div>
+        <div class="activity-examples">
+          <div class="activity-example">Sunrise meditation</div>
+          <div class="activity-example">Forest walks</div>
+          <div class="activity-example">Stargazing nights</div>
+        </div>
+      </div>
+      <div class="activity-card" data-reveal data-reveal-delay="2">
+        <div class="activity-icon">🏔</div>
+        <div class="activity-title">Mountain Views</div>
+        <div class="activity-desc">Wake up to majestic vistas of Saipal Himal and Chankheli — some of the most dramatic peaks in western Nepal.</div>
+        <div class="activity-examples">
+          <div class="activity-example">Saipal Himal (7031m)</div>
+          <div class="activity-example">Chankheli panoramas</div>
+          <div class="activity-example">Golden hour viewpoints</div>
+        </div>
+      </div>
+      <div class="activity-card" data-reveal data-reveal-delay="3">
+        <div class="activity-icon">🐟</div>
+        <div class="activity-title">River &amp; Nature</div>
+        <div class="activity-desc">The legendary Karnali River flows through Humla — the perfect backdrop for fishing, riverside walks, and nature study.</div>
+        <div class="activity-examples">
+          <div class="activity-example">Karnali river walks</div>
+          <div class="activity-example">Local wildlife spotting</div>
+          <div class="activity-example">Fishing experience</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="section section--alt" id="gallery">
+  <div class="container">
+    <div style="text-align:center;" data-reveal>
+      <div class="tag">Photo Gallery</div>
+      <h2 class="section-title">A Glimpse of <em>Humla</em></h2>
+      <div class="divider" style="margin-inline:auto;"></div>
+    </div>
+    <div class="gallery__grid" data-reveal>
+      <div class="gallery-item">
+        <div class="gallery-item-placeholder bg1">🏔<br><small style="font-size:14px;color:rgba(255,255,255,.6);margin-top:8px;display:block;">scenario.jpeg</small></div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-item-placeholder bg2">🏡<br><small style="font-size:14px;color:rgba(255,255,255,.6);margin-top:8px;display:block;">homestay.jpeg</small></div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-item-placeholder bg3">🍲<br><small style="font-size:14px;color:rgba(255,255,255,.6);margin-top:8px;display:block;">food.jpeg</small></div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-item-placeholder bg4">🌿<br><small style="font-size:14px;color:rgba(255,255,255,.6);margin-top:8px;display:block;">Add image</small></div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-item-placeholder bg5">🎶<br><small style="font-size:14px;color:rgba(255,255,255,.6);margin-top:8px;display:block;">night-party.jpeg</small></div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-item-placeholder bg6">🌄<br><small style="font-size:14px;color:rgba(255,255,255,.6);margin-top:8px;display:block;">Add image</small></div>
+      </div>
+    </div>
+    <p style="text-align:center; margin-top:20px; font-size:13px; color:var(--mist);">
+      ↑ Replace the placeholder colors with your actual images (scenario.jpeg, homestay.jpeg, food.jpeg, night-party.jpeg, logo.jpeg)
     </p>
+  </div>
 </section>
 
-<section id="rooms">
-    <h2>Rooms</h2>
-    <div class="grid">
-        <div class="card">
-            <h3>Single Room</h3>
-            <p>₨500/night</p>
-            <p>Meals, WiFi, Hot water included</p>
+<!-- TRAVEL -->
+<section class="section" id="travel">
+  <div class="container">
+    <div class="travel__grid">
+      <div data-reveal>
+        <div class="tag">Getting Here</div>
+        <h2 class="section-title">Travel to <em>Humla</em></h2>
+        <div class="divider"></div>
+        <p class="section-sub">
+          Humla is a remote and rewarding destination in western Nepal. Our team will guide you step-by-step and assist with local arrangements once you arrive.
+        </p>
+        <div class="travel__options">
+          <div class="travel-option">
+            <div class="travel-option-icon">✈</div>
+            <div>
+              <div class="travel-option-title">By Flight</div>
+              <div class="travel-option-desc">Fly from Kathmandu (KTM) or Nepalgunj (KEP) to Simikot Airport (IMK) — the main gateway to Humla. Flights are seasonal; book in advance.</div>
+            </div>
+          </div>
+          <div class="travel-option">
+            <div class="travel-option-icon">🚐</div>
+            <div>
+              <div class="travel-option-title">By Road</div>
+              <div class="travel-option-desc">Road access via Surkhet or Nepalgunj with onward jeep/bus routes. This is a longer but scenic option for adventurous travelers.</div>
+            </div>
+          </div>
+          <div class="travel-option">
+            <div class="travel-option-icon">🗺</div>
+            <div>
+              <div class="travel-option-title">Local Pickup &amp; Guidance</div>
+              <div class="travel-option-desc">Contact us before your journey — we'll help arrange your transfers from Simikot and guide you through all logistics.</div>
+            </div>
+          </div>
         </div>
+      </div>
+      <div data-reveal data-reveal-delay="2">
+        <a href="https://maps.google.com/?q=Humla,Nepal" target="_blank" class="map-placeholder" style="display:flex;">
+          <div class="map-pin">📍</div>
+          <div class="map-label">Chakheli-4, Piplang, Humla</div>
+          <div class="map-sub">Humla District, Karnali Province, Nepal</div>
+          <div class="map-link">Open in Google Maps ↗</div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
 
-        <div class="card">
-            <h3>Double Room</h3>
-            <p>₨1000/night</p>
-            <p>Meals, WiFi, Hot water included</p>
+<!-- CONTACT -->
+<section class="section section--alt" id="contact">
+  <div class="container">
+    <div style="text-align:center; margin-bottom:52px;" data-reveal>
+      <div class="tag">Contact & Booking</div>
+      <h2 class="section-title">Plan Your <em>Visit</em></h2>
+      <div class="divider" style="margin-inline:auto;"></div>
+      <p class="section-sub" style="margin-inline:auto; text-align:center;">
+        We accept bookings by phone and WhatsApp only. Reach out and we'll guide you through everything.
+      </p>
+    </div>
+    <div class="contact__grid">
+      <div data-reveal>
+        <div class="contact__channels">
+          <div class="contact-channel">
+            <div class="contact-channel-icon">📲</div>
+            <div>
+              <div class="contact-channel-label">WhatsApp (Preferred)</div>
+              <div class="contact-channel-value">
+                <a href="https://wa.me/9779765888888" target="_blank">+977 976 588 8888</a>
+              </div>
+            </div>
+          </div>
+          <div class="contact-channel">
+            <div class="contact-channel-icon">📞</div>
+            <div>
+              <div class="contact-channel-label">Phone Call</div>
+              <div class="contact-channel-value"><a href="tel:+9779765888888">+977 976 588 8888</a></div>
+            </div>
+          </div>
+          <div class="contact-channel">
+            <div class="contact-channel-icon">📧</div>
+            <div>
+              <div class="contact-channel-label">Email</div>
+              <div class="contact-channel-value"><a href="mailto:royalhomestay999@gmail.com">royalhomestay999@gmail.com</a></div>
+            </div>
+          </div>
+          <div class="contact-channel">
+            <div class="contact-channel-icon">📍</div>
+            <div>
+              <div class="contact-channel-label">Location</div>
+              <div class="contact-channel-value">Chakheli-4, Piplang, Humla, Karnali Province, Nepal</div>
+            </div>
+          </div>
         </div>
+        <div style="margin-top:24px; display:flex; gap:12px; flex-wrap:wrap;">
+          <a href="https://wa.me/9779765888888" class="btn btn--whatsapp" target="_blank" style="flex:1; justify-content:center;">📲 Chat on WhatsApp</a>
+          <a href="tel:+9779765888888" class="btn btn--gold" style="flex:1; justify-content:center;">📞 Call Now</a>
+        </div>
+      </div>
+      <div data-reveal data-reveal-delay="2">
+        <div class="contact__info-box">
+          <div class="tag">Quick Booking</div>
+          <h3>Ready to visit?</h3>
+          <p>Message us on WhatsApp with your preferred dates, number of guests, and room type. We'll confirm availability and provide all the details you need.</p>
+          <div class="booking-hours">
+            <p><strong>Booking hours:</strong> 7:00 AM – 9:00 PM NST (Nepal Standard Time)</p>
+          </div>
+          <a href="https://wa.me/9779765888888?text=Namaste!%20I%27m%20interested%20in%20booking%20a%20stay%20at%20Royal%20Homestay.%20Please%20let%20me%20know%20availability." class="btn btn--whatsapp" style="width:100%; justify-content:center;" target="_blank">
+            <span>📲</span> Start Booking Now
+          </a>
+          <div class="pan-info">
+            <strong>Business Registration:</strong> PAN No. 612898314<br>
+            Registered Homestay Business · Humla, Nepal
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </section>
 
-<section id="food">
-    <h2>Local Food</h2>
-    <div class="grid">
-        <img src="food.jpeg">
-        <img src="food.jpeg">
-    </div>
-</section>
-
-<section id="gallery">
-    <h2>Gallery</h2>
-    <div class="grid gallery">
-        <img src="scenario.jpeg">
-        <img src="homestay.jpeg">
-        <img src="food.jpeg">
-        <img src="night-party.jpeg">
-        <img src="logo.jpeg">
-    </div>
-</section>
-
-<section id="contact">
-    <h2>Contact</h2>
-    <p>📞 +977 976 588 8888</p>
-    <p>📧 royalhomestay999@gmail.com</p>
-    <a href="https://wa.me/9765888888">Chat on WhatsApp</a>
-</section>
-
+<!-- FOOTER -->
 <footer>
-    <p>© 2026 Royal Homestay</p>
+  <div class="container">
+    <div class="footer__inner">
+      <div>
+        <div class="footer__brand-name">🏔 Royal Homestay</div>
+        <p class="footer__desc">
+          Authentic Himalayan village hospitality in Humla, Nepal. Organic food, mountain views, and genuine warmth — all at an altitude that changes your perspective.
+        </p>
+        <div style="margin-top:20px; display:flex; gap:12px; flex-wrap:wrap;">
+          <a href="https://wa.me/9779765888888" class="btn btn--whatsapp" target="_blank" style="font-size:12px; padding:10px 18px;">📲 WhatsApp</a>
+          <a href="tel:+9779765888888" class="btn" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.7);font-size:12px;padding:10px 18px;">📞 Call</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer__col-title">Quick Links</div>
+        <div class="footer__links">
+          <a href="#about">About Us</a>
+          <a href="#rooms">Rooms & Pricing</a>
+          <a href="#food">Local Food</a>
+          <a href="#activities">Activities</a>
+          <a href="#gallery">Gallery</a>
+          <a href="#travel">How to Get Here</a>
+          <a href="#contact">Contact & Booking</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer__col-title">Contact</div>
+        <div class="footer__links">
+          <a href="tel:+9779765888888">📞 +977 976 588 8888</a>
+          <a href="mailto:royalhomestay999@gmail.com">📧 royalhomestay999@gmail.com</a>
+          <a href="https://maps.google.com/?q=Humla,Nepal" target="_blank">📍 Chakheli-4, Piplang, Humla</a>
+        </div>
+        <div style="margin-top:20px; font-size:12.5px; color:rgba(255,255,255,.3); line-height:1.7;">
+          PAN No: 612898314<br>
+          Humla District, Karnali Province<br>
+          Nepal
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 Royal Homestay · Authentic Himalayan Hospitality</span>
+      <div class="footer__bottom-links">
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+        <a href="https://wa.me/9779765888888" target="_blank">Book Now</a>
+      </div>
+    </div>
+  </div>
 </footer>
 
+<!-- FLOATING WHATSAPP -->
+<a href="https://wa.me/9779765888888?text=Namaste!%20I%27m%20interested%20in%20Royal%20Homestay." class="wa-float" target="_blank">
+  <span class="wa-float-icon">💬</span>
+  <span>Book via WhatsApp</span>
+</a>
+
+<script>
+/* ─── MOBILE MENU ─── */
+function toggleMenu() {
+  document.getElementById('navMobile').classList.toggle('open');
+}
+
+/* ─── HERO IMAGE (graceful fallback) ─── */
+(function(){
+  var bg = document.getElementById('heroBg');
+  var img = new Image();
+  img.onload = function(){
+    bg.style.background =
+      'linear-gradient(to bottom, rgba(15,10,5,.55) 0%, rgba(15,10,5,.25) 50%, rgba(15,10,5,.7) 100%), url("scenario.jpeg") center / cover no-repeat';
+    bg.classList.remove('hero__bg--fallback');
+  };
+  img.src = 'scenario.jpeg';
+})();
+
+/* ─── SCROLL REVEAL ─── */
+(function(){
+  var els = document.querySelectorAll('[data-reveal]');
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  els.forEach(function(el){ io.observe(el); });
+})();
+
+/* ─── NAV SHADOW ON SCROLL ─── */
+(function(){
+  var nav = document.getElementById('nav');
+  window.addEventListener('scroll', function(){
+    nav.style.boxShadow = window.scrollY > 40 ? '0 2px 24px rgba(0,0,0,.08)' : '';
+  });
+})();
+</script>
 </body>
 </html>
